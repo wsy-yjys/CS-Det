@@ -42,24 +42,29 @@ pip install -e .
 
 You could download dataset form [VisDrone(YOLO Format)](https://pan.baidu.com/s/1xWKSZrib3FEBM8R9yY-2Rw?pwd=ry6x ) and [UAVDT dataset (YOLO Format)](https://pan.baidu.com/s/14PREuNKf0gVQFjdKUJV-TA?pwd=sf4x) .
 
-
 ### Training
 
+#### 1. VisDrone2019
+
 ```shell
-% training on a single GPU  
-yolo detect train data=/path/to/data.yaml device=0 optimizer=SGD model=/path/to/model.yaml name=your-work-dir epochs=300 batch=32 > train.log 2>&1 &
+% CS-Det-N
+yolo detect train data=VisDrone.yaml model=CS-Det-N.yaml device=0,1,2,3 optimizer=SGD lr0=0.02 epochs=300 batch=32 name=your-work-dir decay_aug=True mosaic=1.0 copy_paste=1.0 mixup=1.0 close_mixup=225 close_mosaic=150 close_copy_paste=75 > train.log 2>&1 &
 
-% training on a single GPU with decay data augmentation training strategy
-yolo detect train data=/path/to/data.yaml device=0 optimizer=SGD model=/path/to/model.yaml name=your-work-dir epochs=300 batch=32 decay_aug=True mosaic=1.0 copy_paste=1.0 mixup=1.0 close_mixup=225 close_mosaic=150 close_copy_paste=75 > train.log 2>&1 & 
-
-% training on multi GPUs
-yolo detect train data=/path/to/data.yaml device=0,1,2,3 optimizer=SGD model=/path/to/model.yaml name=your-work-dir epochs=300 batch=32 > train.log 2>&1 & 
-
-% training on a multi GPUs with decay data augmentation training strategy
-yolo detect train data=/path/to/data.yaml device=0,1,2,3 optimizer=SGD model=/path/to/model.yaml name=your-work-dir epochs=300 batch=32 decay_aug=True mosaic=1.0 copy_paste=1.0 mixup=1.0 close_mixup=225 close_mosaic=150 close_copy_paste=75 > train.log 2>&1 & 
+% CS-Det-S
+yolo detect train data=VisDrone.yaml model=CS-Det-S.yaml device=0,1,2,3 optimizer=SGD lr0=0.02 epochs=300 batch=32 name=your-work-dir decay_aug=True mosaic=1.0 copy_paste=1.0 mixup=1.0 close_mixup=225 close_mosaic=150 close_copy_paste=75 > train.log 2>&1 &
 ```
 
 More super parameters about training please refer to  [Ultralytics YOLOv8 Docs](https://docs.ultralytics.com/).
+
+#### 2. UAVDT
+
+```shell
+% CS-Det-N
+yolo detect train data=UAVDT.yaml model=CS-Det-N.yaml device=0,1,2,3 optimizer=SGD lr0=0.01 epochs=300 batch=32 name=your-work-dir decay_aug=True mosaic=1.0 copy_paste=1.0 mixup=1.0 close_mixup=225 close_mosaic=150 close_copy_paste=75 > train.log 2>&1 & 
+
+% CS-Det-S
+yolo detect train data=UAVDT.yaml model=CS-Det-S.yaml device=0,1,2,3 optimizer=SGD lr0=0.02 epochs=300 batch=32 name=your-work-dir decay_aug=True mosaic=1.0 copy_paste=1.0 mixup=1.0 close_mixup=225 close_mosaic=150 close_copy_paste=75 > train.log 2>&1 & 
+```
 
 ### Evaluation
 
